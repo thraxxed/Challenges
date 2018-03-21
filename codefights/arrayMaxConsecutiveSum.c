@@ -1,4 +1,4 @@
-// Given array of integers, find the maximal possible sum of some of its 
+// Given array of integers, find the maximal possible sum of some of its
 // k consecutive elements.
 
 // Definition for arrays:
@@ -17,13 +17,15 @@
 #include <limits.h>
 
 int arrayMaxConsecutiveSum(arr_integer inputArray, int k) {
-    int max_sum = INT_MIN;
-    for (int i = 0; i < inputArray.size - (k - 1); ++i) {
-        int consec_sum = 0;
-        for (int j = 0; j < k; ++j) {
-            consec_sum += inputArray.arr[i + j];
-        }
+    int max_sum = 0;
+    for (int i = 0; i < k; ++i) max_sum += inputArray.arr[i];
+    int consec_sum = max_sum;
+    int i = k;
+    while (i < inputArray.size) {
+        consec_sum -= inputArray.arr[i - k];
+        consec_sum += inputArray.arr[i];
         if (consec_sum > max_sum) max_sum = consec_sum;
+        i++;
     }
     return max_sum;
 }
